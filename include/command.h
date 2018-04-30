@@ -20,4 +20,6 @@ int getNCommands(COMMAND c);
 
 void setOutput(COMMAND c, char* output);
 
+void freeCommand(COMMAND c);
+
 #endif

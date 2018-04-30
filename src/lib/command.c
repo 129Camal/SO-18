@@ -57,4 +57,13 @@ void setOutput(COMMAND c, char* output){
 	
 }
 
+void freeCommand(COMMAND c){
+
+	free(c->description);
+	free(c->input);
+	free(c->output);
+	free(c);
+	
+}
+
 
