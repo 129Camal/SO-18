@@ -1,15 +1,15 @@
 #include "dinamicArray.h"
 
 
-struct array_dinamico{
+struct d_array{
     COMMAND* array;
     int pos;
     int capacidade;
 };
 
 
-ARRAY_DINAMICO init_array(int size) {
-    ARRAY_DINAMICO conjunto = (ARRAY_DINAMICO) malloc(sizeof(struct array_dinamico));
+D_ARRAY init_array(int size) {
+    D_ARRAY conjunto = (D_ARRAY) malloc(sizeof(struct D_ARRAY));
     conjunto->array = (COMMAND *) malloc(sizeof(COMMAND*)*size);
     conjunto->pos = 0;
     conjunto->capacidade = size;
@@ -17,7 +17,7 @@ ARRAY_DINAMICO init_array(int size) {
 }
 
 
-ARRAY_DINAMICO array_insert(ARRAY_DINAMICO conjunto, COMMAND c){
+D_ARRAY array_insert(D_ARRAY conjunto, COMMAND c){
     
     int posicao = conjunto->pos;
     
@@ -33,7 +33,7 @@ ARRAY_DINAMICO array_insert(ARRAY_DINAMICO conjunto, COMMAND c){
 }
 
 
-void free_array(ARRAY_DINAMICO l) {
+void free_array(D_ARRAY l) {
     int i;
 
     for(i = 0; i < l->pos; i++){
@@ -45,11 +45,11 @@ void free_array(ARRAY_DINAMICO l) {
     free(l);
 }
 
-int getPos(ARRAY_DINAMICO l){
+int getPos(D_ARRAY l){
     return l->pos;
 }
 
-COMMAND* getArray(ARRAY_DINAMICO l){
+COMMAND* getArray(D_ARRAY l){
     return l->array;
 }
 
