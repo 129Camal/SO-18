@@ -1,4 +1,5 @@
 #include "command.h"
+#include <string.h>
 
 struct command{
 	char* description;
@@ -23,15 +24,13 @@ COMMAND create_command(){
 
 char* getDescription(COMMAND c){
 
-	char* s = strdup(c->description);
+	char* s = (char*)strdup(c->description);
 	return s;
 
 }
 
 char* getInput(COMMAND c){
-
-	char* s = strdup(c->input);
-	return s;
+	return c->input;
 
 }
 

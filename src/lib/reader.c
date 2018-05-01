@@ -32,12 +32,10 @@ D_ARRAY readInput(char* path){
 
 			aux = processDollarLine(buffer, c);
 			setDescription(c,description);
-			strcpy(input, buffer+aux);
-			
-
+			strcpy(input, buffer+aux);			
 			array_insert(darray, c);
-
-			input[0] = '\0';
+			setInput(c,input);
+			printf("%s \n", input);
 			description[0] = '\0';
 
 
@@ -48,6 +46,7 @@ D_ARRAY readInput(char* path){
 
 		
 		}
+		memset(&buffer[0],'\0',sizeof(buffer));
 
 	}
 	return darray;
@@ -71,25 +70,34 @@ static ssize_t readln(int file, char* buf, size_t nbyte){
 	return n;
 }
 
+
 static int processDollarLine(char* s, COMMAND c){
 	int i,j=0;
 	char nC[10];
+	char *teste;
 	
 	for(i = 0; i < strlen(s); i++){
 		if(s[i] == '|'){
 			setIsPipe(c, 1);
-			setIsPipe(c,1);
-			setnCommand(c, atoi(nC));
+			if(j>0)	setnCommand(c, atoi(nC));
+			while(s[i] != ' ') i++;
+			i++;
 			break;
 		}
-		if(s[i] != '$'){
+		else{
+			if(s[i] != '$'){
 			nC[j]=s[i];
 			j++;
-			
+			}
+
+			if(s[i] == ' '){
+			i++;
+			break;
+			}
 		}
 	}
-	setInput(c,s+i);
+	teste = s+i;
+	setInput(c,teste);
 	return i;
-
 }
 
