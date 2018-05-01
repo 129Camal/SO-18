@@ -8,7 +8,7 @@ typedef struct command *COMMAND;
 
 COMMAND create_command();
 
-char* getDescription(COMMAND c)
+char* getDescription(COMMAND c);
 
 char* getInput(COMMAND c);
 
