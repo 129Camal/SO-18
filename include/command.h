@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 typedef struct command *COMMAND;
 
@@ -21,5 +22,13 @@ int getNCommands(COMMAND c);
 void setOutput(COMMAND c, char* output);
 
 void freeCommand(COMMAND c);
+
+void setIsPipe(COMMAND c, int i);
+
+void setnCommand(COMMAND c, int i);
+
+void setInput(COMMAND c, char* input);
+
+void setDescription(COMMAND c, char* description);
 
 #endif

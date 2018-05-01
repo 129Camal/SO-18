@@ -3,7 +3,12 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
 
-char** readInput(char* s)
+#include "dynamicArray.h"
+#include "command.h"
+
+D_ARRAY readInput(char* s);
 
 #endif

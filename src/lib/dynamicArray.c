@@ -1,5 +1,9 @@
 #include "dynamicArray.h"
+<<<<<<< HEAD
 #include <stdlib.h>
+=======
+
+>>>>>>> bd61c1b7aa1a3a9a885164aa506754a2139907a6
 
 struct d_array{
     COMMAND* array;
@@ -8,8 +12,14 @@ struct d_array{
 };
 
 
+<<<<<<< HEAD
 D_ARRAY init_array(int size) {
     D_ARRAY conjunto = (D_ARRAY) malloc(sizeof(struct d_array));
+=======
+D_ARRAY init_array(int size){
+    D_ARRAY conjunto = (D_ARRAY) malloc(sizeof(struct d_array));
+    
+>>>>>>> bd61c1b7aa1a3a9a885164aa506754a2139907a6
     conjunto->array = (COMMAND *) malloc(sizeof(COMMAND*)*size);
     conjunto->pos = 0;
     conjunto->capacidade = size;
