@@ -1,11 +1,14 @@
 #ifndef __COMMAND__
 #define __COMMAND__
 
+#include "utility.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
 typedef struct command *COMMAND;
+
+
 
 COMMAND create_command();
 
@@ -30,5 +33,6 @@ void setnCommand(COMMAND c, int i);
 void setInput(COMMAND c, char* input);
 
 void setDescription(COMMAND c, char* description);
+
 
 #endif

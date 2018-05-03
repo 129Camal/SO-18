@@ -2,8 +2,8 @@
 #define __D_ARRAY__
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h> 
-
 
 #include "command.h"
 

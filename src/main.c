@@ -11,9 +11,13 @@ int main(int argc, char** argv){
 		lc = getArray(d);
 		if(lc){
 			for (i = 0;i < count ;i++){
-				COMMAND c = lc[i];
-				if (c){
-					execute_no_pipe(c);
+				COMMAND c1 = lc[i];
+				if (c1){
+					if(getIsPipe(c1)){
+						COMMAND c2 = lc[i-1];
+						execute_pipe(c2,c1);
+					}
+					else execute_no_pipe(c1);
 				}
 				
 			}
