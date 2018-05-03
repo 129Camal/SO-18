@@ -2,7 +2,6 @@
 #define MAXSIZE 1024
 
 static ssize_t readln (int file, char* buf, size_t nbyte);
-
 static int processDollarLine(char* s, COMMAND c);
 
 D_ARRAY readInput(char* path){
@@ -24,35 +23,24 @@ D_ARRAY readInput(char* path){
 		
 		read = readln(file, buffer, 1024);
 		
-		if(read == 0) break;
-		
 		if(buffer[0] == '$'){
-
 			COMMAND c = create_command();
-
 			aux = processDollarLine(buffer, c);
-			setDescription(c,description);
 			strcpy(input, buffer+aux);			
-			array_insert(darray, c);
+			setDescription(c,description);
 			setInput(c,input);
-			printf("%s \n", input);
-			description[0] = '\0';
-
-
-		} else {
-
-			strncpy(description, buffer, read);
-			//printf("DESCRIÇÃO: %s\n", description);
-
+			array_insert(darray, c);
 		
+		} else {
+			strncpy(description, buffer,read);
 		}
 		memset(&buffer[0],'\0',sizeof(buffer));
 
 	}
 	return darray;
-
-
 }
+
+
 
 static ssize_t readln(int file, char* buf, size_t nbyte){
 	int n=0 , r;
@@ -74,7 +62,6 @@ static ssize_t readln(int file, char* buf, size_t nbyte){
 static int processDollarLine(char* s, COMMAND c){
 	int i,j=0;
 	char nC[10];
-	char *teste;
 	
 	for(i = 0; i < strlen(s); i++){
 		if(s[i] == '|'){
@@ -96,8 +83,6 @@ static int processDollarLine(char* s, COMMAND c){
 			}
 		}
 	}
-	teste = s+i;
-	setInput(c,teste);
 	return i;
 }
 

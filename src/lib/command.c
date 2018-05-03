@@ -1,5 +1,4 @@
 #include "command.h"
-#include <string.h>
 
 struct command{
 	char* description;
@@ -17,78 +16,55 @@ COMMAND create_command(){
 	c->output = NULL;
 	c->isPipe = 0;
 	c->nCommand = 1;
-	printf("%s , %s\n", c->description, c->input);
 
 	return c;
 }
 
 char* getDescription(COMMAND c){
-
-	char* s = (char*)strdup(c->description);
+	char* s = mystrdup(c->description);
 	return s;
 
 }
 
 char* getInput(COMMAND c){
-	return c->input;
-
-}
-
-char* getOutput(COMMAND c){
-
-	char* s = strdup(c->output);
+	char *s = mystrdup(c->input);
 	return s;
 
 }
 
+char* getOutput(COMMAND c){
+	char* s = mystrdup(c->output);
+	return s;
+}
+
 int getIsPipe(COMMAND c){
-
 	return c->isPipe;
-
-
 }
 
 int getNCommands(COMMAND c){
-
 	return c->nCommand;
-
 }
 
 void setOutput(COMMAND c, char* output){
-
-	c->output = output;
-	
+	c->output = mystrdup(output);
 }
 
 void setInput(COMMAND c, char* input){
-
-	c->input = input;
-	
+	c->input = mystrdup(input);
 }
 
 void setDescription(COMMAND c, char* description){
-
-	c->description = description;
-	
+	c->description = mystrdup(description);	
 }
 
 void setIsPipe(COMMAND c, int i){
-
 	c->isPipe = i;
-	
 }
 
 void setnCommand(COMMAND c, int i){
-
 	c->nCommand = i;
-	
 }
-
 
 void freeCommand(COMMAND c){
-
 	free(c);
-	
 }
-
-

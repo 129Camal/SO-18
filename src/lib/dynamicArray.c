@@ -1,6 +1,5 @@
 #include "dynamicArray.h"
 
-#include <stdlib.h>
 
 struct d_array{
     COMMAND* array;
