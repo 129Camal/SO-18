@@ -1,6 +1,6 @@
 Este comando lista os ficheiros:
 $ ls
 Agora podemos ordenar estes ficheiros:
-$23| sort
+$| sort
 E escolher o primeiro:
 $| head -1

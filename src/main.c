@@ -1,4 +1,6 @@
 #include "reader.h"
+#include "pipe.h"
+#include "execute.h"
 
 int main(int argc, char** argv){
 	COMMAND* lc;
@@ -8,10 +10,12 @@ int main(int argc, char** argv){
 		int count = getPos(d);
 		lc = getArray(d);
 		if(lc){
-			for (i = 0;i < count ;++i){
+			for (i = 0;i < count ;i++){
 				COMMAND c = lc[i];
-				if (c)
-				printf("Descrição|%s| \nInput|%s| \n",getDescription(c),getInput(c));
+				if (c){
+					execute_no_pipe(c);
+				}
+				
 			}
 		}
 	}

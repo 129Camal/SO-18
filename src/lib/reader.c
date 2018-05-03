@@ -26,7 +26,7 @@ D_ARRAY readInput(char* path){
 		if(buffer[0] == '$'){
 			COMMAND c = create_command();
 			aux = processDollarLine(buffer, c);
-			strcpy(input, buffer+aux);			
+			strcpy(input, buffer+aux);	
 			setDescription(c,description);
 			setInput(c,input);
 			array_insert(darray, c);
