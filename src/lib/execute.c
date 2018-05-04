@@ -53,8 +53,9 @@ int execute_pipe (COMMAND cmdR, COMMAND cmdW){
 	char* input = getOutput(cmdR);
 	char output [1024];
 	char buff [1024];
-	int length = strlen(input);
-
+	int length; 
+	if (input)
+		length = strlen(input);
 	pid = fork();
 	if(pid == 0){
 		closeWPipe(pinput);

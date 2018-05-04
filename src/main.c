@@ -31,12 +31,14 @@ int main(int argc, char** argv){
 			if(file<0){
 				perror("Error opening the file!");
 				exit(-1);
-		}
+			}
 			for(i=0;i<count;i++){
 				COMMAND cmd = lc[i];
 				char  print[1024];
+				if(getDescription(cmd)){
 				strcpy(print,getDescription(cmd));
-				strcat(print,"\n");
+				strcat(print,"\n");	
+				}
 				strcat(print,"$");
 				if (getIsPipe(cmd)){
 					if((nC=getNCommands(cmd))>1){
@@ -47,9 +49,11 @@ int main(int argc, char** argv){
 						strcat(print,"|");
 
 				}
+				if(getInput(cmd))
 				strcat(print,getInput(cmd));
 				strcat(print,"\n");
 				strcat(print,">>>\n");
+				if(getOutput(cmd))
 				strcat(print,getOutput(cmd));
 				strcat(print,"\n");
 				strcat(print,"<<<\n");

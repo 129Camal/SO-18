@@ -28,6 +28,7 @@ D_ARRAY readInput(char* path){
 			aux = processDollarLine(buffer, c);
 			strcpy(input, buffer+aux);
 			setDescription(c,description);
+			description[0]='\0';
 			setInput(c,input);
 			array_insert(darray, c);
 		
