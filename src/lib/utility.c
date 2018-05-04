@@ -21,3 +21,9 @@ char** token_input(char *input){
 	ret[i]=token;
 	return ret;
 } 
+
+char* myitoa(int i){
+	char* n = malloc(10);
+	sprintf(n,"%d",i);
+	return n;
+}

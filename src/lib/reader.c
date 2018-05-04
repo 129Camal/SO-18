@@ -26,7 +26,7 @@ D_ARRAY readInput(char* path){
 		if(buffer[0] == '$'){
 			COMMAND c = create_command();
 			aux = processDollarLine(buffer, c);
-			strcpy(input, buffer+aux);	
+			strcpy(input, buffer+aux);
 			setDescription(c,description);
 			setInput(c,input);
 			array_insert(darray, c);
@@ -37,12 +37,13 @@ D_ARRAY readInput(char* path){
 		memset(&buffer[0],'\0',sizeof(buffer));
 
 	}
+	close(file);
 	return darray;
 }
 
 
 
-static ssize_t readln(int file, char* buf, size_t nbyte){
+	ssize_t readln(int file, char* buf, size_t nbyte){
 	int n=0 , r;
 	char* p = buf;
 
