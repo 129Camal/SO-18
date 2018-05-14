@@ -21,7 +21,7 @@ D_ARRAY readInput(char* path){
 
 	while(read>0){
 		
-		read = readln(file, buffer, 1024);
+		read = readln(file, buffer, MAXSIZE);
 		
 		if(buffer[0] == '$'){
 			COMMAND c = create_command();
@@ -69,22 +69,26 @@ static int processDollarLine(char* s, COMMAND c){
 		if(s[i] == '|'){
 			setIsPipe(c, 1);
 			if(j>0)	setnCommand(c, atoi(nC));
-			while(s[i] != ' ') i++;
-			i++;
+			while(s[i]==' '){
+				i++;
+			}
 			break;
 		}
 		else{
-			if(s[i] != '$'){
-			nC[j]=s[i];
-			j++;
+			if(s[i] != '$' && s[i] != '|' && s[i] != ' '){
+				nC[j]=s[i];
+				j++;
 			}
 
-			if(s[i] == ' '){
-			i++;
+		if(s[i] == ' '){
 			break;
 			}
 		}
 	}
-	return i;
+	return i+1;
+
+
 }
+
+
 

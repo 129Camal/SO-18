@@ -15,7 +15,7 @@ int execute_no_pipe (COMMAND cmd){
 		closeWPipe(pipe);
 		execvp(argv[0],argv);
 		perror("Failed to execute command!");
-		exit(-1);
+		_exit(-1);
 	}
 	else{
 		closeWPipe(pipe);
@@ -24,18 +24,19 @@ int execute_no_pipe (COMMAND cmd){
 		if(WIFEXITED(status)){
 			 es=WEXITSTATUS(status);
 		}
-		else {			
-			perror("Failed to execute command!File not overwrited.");
-			exit(-1);
+		else{			
+			printf("Failed to execute command!File not overwrited.");
+			return -1;
 		}
-		if (es == 0){
-			memset(&buff[0],'\0',sizeof (buff));
-			r=read(getpREnd(pipe),buff,1024);
-			if(r){
-				strcpy(output,buff);
-				output[r-1]='\0';
-				setOutput(cmd,output);
-			}
+		if (es)                     
+			return -1;
+			
+		memset(&buff[0],'\0',sizeof (buff));
+		r=read(getpREnd(pipe),buff,1024);
+		if(r){
+			strcpy(output,buff);
+			output[r-1]='\0';
+			setOutput(cmd,output);
 		}
 		closeRPipe(pipe);
 	}
@@ -70,7 +71,7 @@ int execute_pipe (COMMAND cmdR, COMMAND cmdW){
 
 		execvp(argv[0],argv);
 		perror("Failed to execute command!");
-		exit(-1);
+		_exit(-1);
 	}
 	else{
 		closeWPipe(poutput);
@@ -85,16 +86,21 @@ int execute_pipe (COMMAND cmdR, COMMAND cmdW){
 		}
 		else {			
 			perror("Failed to execute command!File not overwrited.");
-			exit(-1);
+			return -1;
 		}
-		if (es == 0){
+		if (es != 0){
+		free(input);
+		return -1;
+		}
 		memset(&buff[0],'\0',sizeof(buff));
 		r=read(getpREnd(poutput),&buff,1024);
 		strcpy(output,buff);
 		output[r-1] = '\0';
 		setOutput(cmdW,output);
-		}
+	
 
+
+		free(input);
 	}
 	return 0;
 	

@@ -4,14 +4,14 @@
 #include <stdlib.h>
 
 int main(int argc, char** argv){
-	if (argc!=3){
-		perror("You need 2 arguments! Missing path's");
+	if (argc!=2){
+		perror("You need 1 arguments! Missing path");
 		exit(-1);
 	}
 	COMMAND* lc;
-	int i,nC;
+	int i,nC,flag = 0;
 	D_ARRAY d = readInput(argv[1]);
-	
+
 	if (d){
 		int count = getPos(d);
 		lc = getArray(d);
@@ -21,13 +21,17 @@ int main(int argc, char** argv){
 				if (c1){
 					if(getIsPipe(c1)){
 						COMMAND c2 = lc[i-getNCommands(c1)];
-						execute_pipe(c2,c1);
+						flag = execute_pipe(c2,c1);
 					}
-					else execute_no_pipe(c1);
+					else flag = execute_no_pipe(c1);
+				}
+				if (flag == -1){
+					printf("Error executing command, file not overwritten!\n");
+					_exit(-1);
 				}
 				
 			}
-			int file = open(argv[2],O_CREAT|O_TRUNC|O_RDWR,0644);
+			int file = open(argv[1],O_CREAT|O_TRUNC|O_RDWR,0644);
 			if(file<0){
 				perror("Error opening the file!");
 				exit(-1);
@@ -35,9 +39,11 @@ int main(int argc, char** argv){
 			for(i=0;i<count;i++){
 				COMMAND cmd = lc[i];
 				char  print[1024];
-				if(getDescription(cmd)){
-				strcpy(print,getDescription(cmd));
-				strcat(print,"\n");	
+				char *description = getDescription(cmd);
+				if(description){
+				strcpy(print,description);
+				strcat(print,"\n");
+				free(description);
 				}
 				strcat(print,"$");
 				if (getIsPipe(cmd)){
@@ -49,16 +55,19 @@ int main(int argc, char** argv){
 						strcat(print,"|");
 
 				}
-				if(getInput(cmd))
-				strcat(print,getInput(cmd));
+				char*input = getInput(cmd);
+				strcat(print,input);
 				strcat(print,"\n");
 				strcat(print,">>>\n");
-				if(getOutput(cmd))
-				strcat(print,getOutput(cmd));
+				char *output = getOutput(cmd);
+				if(output){
+				strcat(print,output);
 				strcat(print,"\n");
+				free(output);	
+				}
 				strcat(print,"<<<\n");
 				write(file,print,strlen(print));
-
+				free(input);
 			}
 			close(file);
 		}
