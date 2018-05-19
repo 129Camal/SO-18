@@ -38,7 +38,7 @@ int main(int argc, char** argv){
 			}
 			for(i=0;i<count;i++){
 				COMMAND cmd = lc[i];
-				char  print[1024];
+				char  print[1024*3];
 				char *description = getDescription(cmd);
 				if(description){
 				strcpy(print,description);
@@ -56,6 +56,7 @@ int main(int argc, char** argv){
 
 				}
 				char*input = getInput(cmd);
+				strcat(print," ");
 				strcat(print,input);
 				strcat(print,"\n");
 				strcat(print,">>>\n");

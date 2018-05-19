@@ -4,8 +4,8 @@
 int execute_no_pipe (COMMAND cmd){
 	PIPE pipe = create_pipe();
 	char** argv = token_input(getInput(cmd));
-	char buff[1024];
-	char output[1024];
+	char buff[1024*2];
+	char output[1024*2];
 	int pid,r=1,es;
 
 	pid = fork();
@@ -32,7 +32,7 @@ int execute_no_pipe (COMMAND cmd){
 			return -1;
 			
 		memset(&buff[0],'\0',sizeof (buff));
-		r=read(getpREnd(pipe),buff,1024);
+		r=read(getpREnd(pipe),buff,1024*2);
 		if(r){
 			strcpy(output,buff);
 			output[r-1]='\0';
@@ -52,8 +52,8 @@ int execute_pipe (COMMAND cmdR, COMMAND cmdW){
 	char** argv = token_input(getInput(cmdW));
 	int pid,es,r;
 	char* input = getOutput(cmdR);
-	char output [1024];
-	char buff [1024];
+	char output [1024*2];
+	char buff [1024*2];
 	int length; 
 	if (input)
 		length = strlen(input);
@@ -93,7 +93,7 @@ int execute_pipe (COMMAND cmdR, COMMAND cmdW){
 		return -1;
 		}
 		memset(&buff[0],'\0',sizeof(buff));
-		r=read(getpREnd(poutput),&buff,1024);
+		r=read(getpREnd(poutput),&buff,1024*2);
 		strcpy(output,buff);
 		output[r-1] = '\0';
 		setOutput(cmdW,output);
