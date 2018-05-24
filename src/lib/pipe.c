@@ -31,7 +31,7 @@ void closeWPipe(PIPE p){
 	close(p->pline[1]);
 }
 
-void freePipeline(PIPE p){
+void freePipe(PIPE p){
 	if (p)
 	free (p);
 }

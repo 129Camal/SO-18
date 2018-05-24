@@ -1,5 +1,4 @@
 #include "reader.h"
-#include "pipe.h"
 #include "execute.h"
 #include <stdlib.h>
 
@@ -8,8 +7,6 @@ int main(int argc, char** argv){
 		perror("You need 1 arguments! Missing path");
 		_exit(-1);
 	}
-
-
 	COMMAND* lc;
 	int i,flag = 0;
 	D_ARRAY d = readInput(argv[1]);
@@ -17,25 +14,23 @@ int main(int argc, char** argv){
 	if (d){
 		int count = getPos(d);
 		lc = getArray(d);
-		
 		if(lc){
 			for (i = 0;i < count ;i++){
 				COMMAND c1 = lc[i];
 				if (c1){
 					if(getIsPipe(c1)){
 						COMMAND c2 = lc[i-getNCommands(c1)];
-						flag = execute_pipe(c2,c1);
+						flag = execute_two_commands(c2,c1);
 					}
-					
-					else flag = execute_no_pipe(c1);
+					else flag = execute_one_command(c1);
 				}
-				
 				if (flag == -1){
 					printf("Error executing command, file not overwritten!\n");
 					_exit(-1);
 				}
 				
 			}
+
 			int file = open(argv[1],O_CREAT|O_TRUNC|O_RDWR,0644);
 			if(file<0){
 				perror("Error opening the file!");
@@ -56,3 +51,4 @@ int main(int argc, char** argv){
 
 	return 0;
 }
+

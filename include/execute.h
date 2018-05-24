@@ -7,8 +7,8 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-int execute_no_pipe (COMMAND cmd);
+int execute_one_command (COMMAND cmd);
 
-int execute_pipe (COMMAND cmdR,COMMAND cmdW);
+int execute_two_commands (COMMAND cmdR,COMMAND cmdW);
 
 #endif

@@ -19,4 +19,6 @@ void closeRPipe(PIPE p);
 
 void closeWPipe(PIPE p);
 
+void freePipe(PIPE p);
+
 #endif
