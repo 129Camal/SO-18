@@ -34,5 +34,6 @@ void setInput(COMMAND c, char* input);
 
 void setDescription(COMMAND c, char* description);
 
+void toString_command(char* print, COMMAND cmd);
 
 #endif

@@ -68,3 +68,36 @@ void setnCommand(COMMAND c, int i){
 void freeCommand(COMMAND c){
 	free(c);
 }
+
+void toString_command(char* print, COMMAND cmd){
+	char *description = getDescription(cmd);
+	int nC;
+	if(description){
+		strcpy(print,description);
+		strcat(print,"\n");
+		free(description);
+	}
+	strcat(print,"$");
+	if (getIsPipe(cmd)){
+		if((nC=getNCommands(cmd))>1){
+			char ncommand[10];
+			strcpy(ncommand,myitoa(nC));
+			strcat(print,ncommand);
+		}
+		strcat(print,"|");
+	}
+	else strcat(print," ");
+	
+	char*input = getInput(cmd);
+	strcat(print,input);
+	strcat(print,"\n");
+	strcat(print,">>>\n");
+	free(input);
+	char *output = getOutput(cmd);
+	if(output){
+		strcat(print,output);
+		strcat(print,"\n");
+		free(output);	
+	}
+	strcat(print,"<<<\n");
+}
