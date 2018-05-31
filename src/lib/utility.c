@@ -14,17 +14,22 @@ char** token_input(char *input){
 	int i=0;
 	token = strtok(input," ");
 	while(token!=NULL){
-		ret[i]=token;
-		i++;	
+		ret[i]=mystrdup(token);
+		i++;
 		token = strtok(NULL," ");
 	}
-	ret[i]=token;
+	ret[i]=mystrdup(token);
+	free(input);
 	return ret;
 } 
 
-char* myitoa(int i){
-	char* n = malloc(10);
-	sprintf(n,"%d",i);
-	return n;
+
+void free_argv(char** argv){
+	int i=0;
+	while (argv[i]){
+		free(argv[i]);
+		i++;
+	}
+	free(argv);
 }
 

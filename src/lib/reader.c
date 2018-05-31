@@ -1,27 +1,20 @@
 #include "reader.h"
-#define MAXSIZE 1024
 
 static ssize_t readln (int file, char* buf, size_t nbyte);
 static int processDollarLine(char* s, COMMAND c);
 
-D_ARRAY readInput(char* path){
+D_ARRAY readInput(int file){
 
-	int file, read = 1, aux;
+	int read = 1, aux;
 	char buffer[MAXSIZE];
 	char input[MAXSIZE];
 	char description[MAXSIZE];
 
 	D_ARRAY darray = init_array(100);
 
-	file = open(path, O_RDONLY, 0644);
-
-	if( file < 0 ){
-		perror("Invalid Path");
-	}
-
 	while(read>0){
 		
-		read = readln(file, buffer, MAXSIZE);
+		read = readln(file,buffer, MAXSIZE);
 		
 		if(buffer[0] == '$'){
 			COMMAND c = create_command();
@@ -62,22 +55,22 @@ D_ARRAY readInput(char* path){
 
 
 static int processDollarLine(char* s, COMMAND c){
-	int i,j=0;
-	char nC[10];
-	
+	int i,flag = 0;
+	char *nC,*aux;
+    aux = mystrdup(s);
+
 	for(i = 0; i < strlen(s); i++){
 		if(s[i] == '|'){
 			setIsPipe(c, 1);
-			if(j>0)	setnCommand(c, atoi(nC));
-			while(s[i]==' '){
-				i++;
-			}
-			break;
+			if(flag)	
+				setnCommand(c, atoi(nC));
+			if(s[i+1] != ' ')
+				break;
 		}
 		else{
-			if(s[i] != '$' && s[i] != '|' && s[i] != ' '){
-				nC[j]=s[i];
-				j++;
+			if(strchr("$| ",s[i]) == NULL){
+				nC = strtok(aux+i,"|");
+				flag++;
 			}
 
 		if(s[i] == ' '){
@@ -85,9 +78,9 @@ static int processDollarLine(char* s, COMMAND c){
 			}
 		}
 	}
+
+	free(aux);
 	return i+1;
-
-
 }
 
 

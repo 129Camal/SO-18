@@ -1,10 +1,170 @@
 Este comando lista os ficheiros:
 $ ls
+>>>
+exemplo.nb
+lib
+main.c
+Makefile
+obj
+program
+<<<
 Agora podemos ordenar estes ficheiros:
 $| sort
+>>>
+exemplo.nb
+lib
+main.c
+Makefile
+obj
+program
+<<<
 E escolher o primeiro:
-$| head -1
-ola
+$| head -3
+>>>
+exemplo.nb
+lib
+main.c
+<<<
+Mostrar processos em execução:
+$ ps
+>>>
+  PID TTY          TIME CMD
+ 8268 pts/0    00:00:00 bash
+20345 pts/0    00:00:00 memcheck-amd64-
+20349 pts/0    00:00:00 ps
+<<<
+Mostrar o "Working directory":
+$ pwd
+>>>
+/home/mont3iro68/Documents/SO/TP/SO-18/src
+<<<
+Mostrar permissões e ficheiros ocultos:
 $ ls -la
-xd
-$| grep lib 
+>>>
+total 76
+drwxr-xr-x 4 mont3iro68 mont3iro68  4096 mai 31 08:28 .
+drwxr-xr-x 5 mont3iro68 mont3iro68  4096 mai  3 10:15 ..
+-rw-r--r-- 1 mont3iro68 mont3iro68  6148 mai  1 16:15 .DS_Store
+-rw-r--r-- 1 mont3iro68 mont3iro68  5438 mai 31 08:20 exemplo.nb
+drwxr-xr-x 2 mont3iro68 mont3iro68  4096 mai 24 02:44 lib
+-rw-r--r-- 1 mont3iro68 mont3iro68  1112 mai 31 05:11 main.c
+-rw-r--r-- 1 mont3iro68 mont3iro68   557 mai  1 16:15 Makefile
+drwxr-xr-x 3 mont3iro68 mont3iro68  4096 mai 31 08:28 obj
+-rwxr-xr-x 1 mont3iro68 mont3iro68 35480 mai 31 08:28 program
+<<<
+Mostrar periféricos do computador:
+$ lspci
+>>>
+00:00.0 Host bridge: Intel Corporation Broadwell-U Host Bridge -OPI (rev 09)
+00:02.0 VGA compatible controller: Intel Corporation HD Graphics 5500 (rev 09)
+00:03.0 Audio device: Intel Corporation Broadwell-U Audio Controller (rev 09)
+00:14.0 USB controller: Intel Corporation Wildcat Point-LP USB xHCI Controller (rev 03)
+00:16.0 Communication controller: Intel Corporation Wildcat Point-LP MEI Controller #1 (rev 03)
+00:1b.0 Audio device: Intel Corporation Wildcat Point-LP High Definition Audio Controller (rev 03)
+00:1c.0 PCI bridge: Intel Corporation Wildcat Point-LP PCI Express Root Port #1 (rev e3)
+00:1c.2 PCI bridge: Intel Corporation Wildcat Point-LP PCI Express Root Port #3 (rev e3)
+00:1c.3 PCI bridge: Intel Corporation Wildcat Point-LP PCI Express Root Port #4 (rev e3)
+00:1c.4 PCI bridge: Intel Corporation Wildcat Point-LP PCI Express Root Port #5 (rev e3)
+00:1d.0 USB controller: Intel Corporation Wildcat Point-LP USB EHCI Controller (rev 03)
+00:1f.0 ISA bridge: Intel Corporation Wildcat Point-LP LPC Controller (rev 03)
+00:1f.2 SATA controller: Intel Corporation Wildcat Point-LP SATA Controller [AHCI Mode] (rev 03)
+00:1f.3 SMBus: Intel Corporation Wildcat Point-LP SMBus Controller (rev 03)
+02:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller (rev 15)
+03:00.0 Network controller: Qualcomm Atheros QCA9377 802.11ac Wireless Network Adapter (rev 30)
+04:00.0 3D controller: NVIDIA Corporation GM108M [GeForce 940M] (rev ff)
+<<<
+Verificar conexões de rede:
+$ ifconfig
+>>>
+enp2s0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        ether 2c:60:0c:f5:c4:97  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+        device interrupt 49  base 0x9000  
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 473  bytes 34056 (33.2 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 473  bytes 34056 (33.2 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+wlp3s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.222  netmask 255.255.255.0  broadcast 192.168.1.255
+        inet6 fe80::e899:3f4a:e715:bbc6  prefixlen 64  scopeid 0x20<link>
+        ether 18:4f:32:d5:a2:d5  txqueuelen 1000  (Ethernet)
+        RX packets 274596  bytes 269010702 (256.5 MiB)
+        RX errors 0  dropped 20932  overruns 0  frame 0
+        TX packets 58007  bytes 8195030 (7.8 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+<<<
+Verificar modificações no repositório GIT:
+$ git status
+>>>
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   ../include/execute.h
+	modified:   ../include/reader.h
+	modified:   ../include/utility.h
+	modified:   exemplo.nb
+	modified:   lib/command.c
+	modified:   lib/execute.c
+	modified:   lib/reader.c
+	modified:   lib/utility.c
+	modified:   main.c
+
+no changes added to commit (use "git add" and/or "git commit -a")
+<<<
+Encontrar ocorrencias de "inet":
+$2| grep inet
+>>>
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        inet 192.168.1.222  netmask 255.255.255.0  broadcast 192.168.1.255
+        inet6 fe80::e899:3f4a:e715:bbc6  prefixlen 64  scopeid 0x20<link>
+<<<
+Ficar com os 2 primeiros da lista:
+$5| head -2
+>>>
+total 76
+drwxr-xr-x 4 mont3iro68 mont3iro68  4096 mai 31 08:28 .
+<<<
+Contar palavras:
+$4| wc
+>>>
+     25     156    1254
+<<<
+Ordenar:
+$9| sort
+>>>
+20345 pts/0    00:00:00 memcheck-amd64-
+20349 pts/0    00:00:00 ps
+ 8268 pts/0    00:00:00 bash
+  PID TTY          TIME CMD
+<<<
+Ordenar:
+$3| sort
+>>>
+drwxr-xr-x 4 mont3iro68 mont3iro68  4096 mai 31 08:28 .
+total 76
+<<<
+Encontrar o pid do nosso programa:
+$| grep  progra
+>>>
+
+<<<
+Contar palavras:
+$9| wc
+>>>
+     16     208    1509
+<<<

@@ -4,12 +4,24 @@
 
 int main(int argc, char** argv){
 	if (argc!=2){
-		perror("You need 1 arguments! Missing path");
+		perror("You need 1 argument! Missing path");
 		_exit(-1);
 	}
 	COMMAND* lc;
-	int i,flag = 0;
-	D_ARRAY d = readInput(argv[1]);
+	int i,file,flag = 0;
+	D_ARRAY d;
+
+	file = open(argv[1], O_RDONLY, 0644);
+	
+	if (file)
+	 d = readInput(file);
+	else{
+		perror("Error opening file for reading!");
+		_exit(-1);	
+	}
+
+
+
 
 	if (d){
 		int count = getPos(d);
@@ -25,15 +37,16 @@ int main(int argc, char** argv){
 					else flag = execute_one_command(c1);
 				}
 				if (flag == -1){
-					printf("Error executing command, file not overwritten!\n");
+					printf("File not overwritten!\n");
 					_exit(-1);
 				}
 				
 			}
 
-			int file = open(argv[1],O_CREAT|O_TRUNC|O_RDWR,0644);
+
+			int file = open(argv[1],O_CREAT|O_TRUNC|O_WRONLY,0644);
 			if(file<0){
-				perror("Error opening the file!");
+				perror("Error opening the file, for writing!");
 				_exit(-1);
 			}
 			char print[1024*3];

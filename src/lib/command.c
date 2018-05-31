@@ -66,6 +66,9 @@ void setnCommand(COMMAND c, int i){
 }
 
 void freeCommand(COMMAND c){
+	free(c->description);
+	free(c->input);
+	free(c->output);
 	free(c);
 }
 
@@ -81,12 +84,13 @@ void toString_command(char* print, COMMAND cmd){
 	if (getIsPipe(cmd)){
 		if((nC=getNCommands(cmd))>1){
 			char ncommand[10];
-			strcpy(ncommand,myitoa(nC));
+			sprintf(ncommand,"%d",nC);
 			strcat(print,ncommand);
 		}
 		strcat(print,"|");
+
 	}
-	else strcat(print," ");
+	strcat(print," ");
 	
 	char*input = getInput(cmd);
 	strcat(print,input);

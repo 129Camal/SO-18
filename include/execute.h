@@ -1,7 +1,9 @@
 #ifndef __EXECUTE__
 #define __EXECUTE__
 
+
 #include "command.h"
+#include "utility.h"
 #include "pipe.h"
 #include <sys/wait.h>
 #include <unistd.h>
