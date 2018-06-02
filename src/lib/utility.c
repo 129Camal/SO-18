@@ -8,6 +8,8 @@ char* mystrdup(char* str){
 	return ret;
 }
 
+
+
 char** token_input(char *input){
 	char *token;
 	char **ret= (char**) malloc(30*sizeof(char*));
@@ -22,7 +24,6 @@ char** token_input(char *input){
 	free(input);
 	return ret;
 } 
-
 
 void free_argv(char** argv){
 	int i=0;

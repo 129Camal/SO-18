@@ -3,15 +3,17 @@
 #include <stdlib.h>
 
 int main(int argc, char** argv){
-	if (argc!=2){
-		perror("You need 1 argument! Missing path");
+	if (argc<2){
+		perror("You need at least 1 more argument! Missing file/s");
 		_exit(-1);
 	}
+	for(int nFiles = 1; nFiles < argc;nFiles ++){
+
 	COMMAND* lc;
 	int i,file,flag = 0;
 	D_ARRAY d;
 
-	file = open(argv[1], O_RDONLY, 0644);
+	file = open(argv[nFiles],O_RDONLY);
 	
 	if (file)
 	 d = readInput(file);
@@ -19,7 +21,7 @@ int main(int argc, char** argv){
 		perror("Error opening file for reading!");
 		_exit(-1);	
 	}
-
+	close (file);
 
 
 
@@ -44,12 +46,12 @@ int main(int argc, char** argv){
 			}
 
 
-			int file = open(argv[1],O_CREAT|O_TRUNC|O_WRONLY,0644);
+			file = open(argv[nFiles],O_TRUNC|O_WRONLY);
 			if(file<0){
 				perror("Error opening the file, for writing!");
 				_exit(-1);
 			}
-			char print[1024*3];
+			char print[1024*4];
 			for(i=0;i<count;i++){
 				COMMAND cmd = lc[i];
 				toString_command(print,cmd);
@@ -60,6 +62,7 @@ int main(int argc, char** argv){
 	}
 
 	free_array(d);
+	}
 
 
 	return 0;

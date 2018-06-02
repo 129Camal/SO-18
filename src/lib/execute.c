@@ -5,8 +5,8 @@ int execute_one_command (COMMAND cmd){
 	PIPE pipe = create_pipe();
 	int pid,r=1,es,w,status=0;
 	char** argv = token_input(getInput(cmd));
-	char buff[MAXSIZE*2];
-	char output[MAXSIZE*2];
+	char buff[MAXSIZE*4];
+	char output[MAXSIZE*4];
 
 	pid = fork();
 	if(pid == 0){
@@ -44,7 +44,7 @@ int execute_one_command (COMMAND cmd){
 
 
 		memset(&buff[0],'\0',sizeof (buff));
-		r=read(getpREnd(pipe),&buff,1024*2);
+		r=read(getpREnd(pipe),&buff,MAXSIZE*4);
 		if(r){
 			strcpy(output,buff);
 			output[r-1]='\0';
@@ -63,8 +63,8 @@ int execute_two_commands (COMMAND cmdR, COMMAND cmdW){
 	int pid,es,r,length,w,status=0;
 	char** argv = token_input(getInput(cmdW));
 	char* input = getOutput(cmdR);
-	char output [MAXSIZE*2];
-	char buff [MAXSIZE*2];
+	char output [MAXSIZE*4];
+	char buff [MAXSIZE*4];
 
 	PIPE pinput = create_pipe();
 	PIPE poutput = create_pipe();
@@ -96,7 +96,7 @@ int execute_two_commands (COMMAND cmdR, COMMAND cmdW){
 	 	}
 		closeWPipe(poutput);
 		closeRPipe(pinput);
-		
+		if(input)
 		write(getpWEnd(pinput),input,length);
 		closeWPipe(pinput);
 		
@@ -123,10 +123,12 @@ int execute_two_commands (COMMAND cmdR, COMMAND cmdW){
 		}
 	
 		memset(&buff[0],'\0',sizeof(buff));
-		r=read(getpREnd(poutput),&buff,MAXSIZE*2);
+		r=read(getpREnd(poutput),&buff,MAXSIZE*4);
+		if(r){	
 		strcpy(output,buff);
 		output[r-1] = '\0';
 		setOutput(cmdW,output);
+		}
 	
 		free_argv(argv);
 		free(input);

@@ -1,37 +1,40 @@
 Este comando lista os ficheiros:
 $ ls
 >>>
+exemplo2.nb
 exemplo.nb
 lib
 main.c
 Makefile
+notebook
 obj
-program
 <<<
 Agora podemos ordenar estes ficheiros:
 $| sort
 >>>
+exemplo2.nb
 exemplo.nb
 lib
 main.c
 Makefile
+notebook
 obj
-program
 <<<
 E escolher o primeiro:
-$| head -3
+$| head -1
 >>>
-exemplo.nb
-lib
-main.c
+exemplo2.nb
 <<<
 Mostrar processos em execução:
 $ ps
 >>>
   PID TTY          TIME CMD
- 8268 pts/0    00:00:00 bash
-20345 pts/0    00:00:00 memcheck-amd64-
-20349 pts/0    00:00:00 ps
+  398 pts/0    00:00:00 memcheck-amd64-
+  408 pts/0    00:00:00 ps
+ 9089 pts/0    00:00:00 notebook
+ 9310 pts/0    00:00:00 sort <defunct>
+21104 pts/0    00:00:00 gdb
+29681 pts/0    00:00:00 bash
 <<<
 Mostrar o "Working directory":
 $ pwd
@@ -41,16 +44,17 @@ $ pwd
 Mostrar permissões e ficheiros ocultos:
 $ ls -la
 >>>
-total 76
-drwxr-xr-x 4 mont3iro68 mont3iro68  4096 mai 31 08:28 .
-drwxr-xr-x 5 mont3iro68 mont3iro68  4096 mai  3 10:15 ..
+total 80
+drwxr-xr-x 4 mont3iro68 mont3iro68  4096 jun  2 23:44 .
+drwxr-xr-x 5 mont3iro68 mont3iro68  4096 jun  2 23:52 ..
 -rw-r--r-- 1 mont3iro68 mont3iro68  6148 mai  1 16:15 .DS_Store
--rw-r--r-- 1 mont3iro68 mont3iro68  5438 mai 31 08:20 exemplo.nb
-drwxr-xr-x 2 mont3iro68 mont3iro68  4096 mai 24 02:44 lib
--rw-r--r-- 1 mont3iro68 mont3iro68  1112 mai 31 05:11 main.c
--rw-r--r-- 1 mont3iro68 mont3iro68   557 mai  1 16:15 Makefile
-drwxr-xr-x 3 mont3iro68 mont3iro68  4096 mai 31 08:28 obj
--rwxr-xr-x 1 mont3iro68 mont3iro68 35480 mai 31 08:28 program
+-rw-r--r-- 1 mont3iro68 mont3iro68  3306 jun  2 23:53 exemplo2.nb
+-rw-r--r-- 1 mont3iro68 mont3iro68  4715 jun  2 23:51 exemplo.nb
+drwxr-xr-x 2 mont3iro68 mont3iro68  4096 jun  2 20:40 lib
+-rw-r--r-- 1 mont3iro68 mont3iro68  1178 jun  2 23:43 main.c
+-rw-r--r-- 1 mont3iro68 mont3iro68   558 jun  2 15:08 Makefile
+-rwxr-xr-x 1 mont3iro68 mont3iro68 35584 jun  2 23:44 notebook
+drwxr-xr-x 3 mont3iro68 mont3iro68  4096 jun  2 23:44 obj
 <<<
 Mostrar periféricos do computador:
 $ lspci
@@ -88,83 +92,37 @@ lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
         inet 127.0.0.1  netmask 255.0.0.0
         inet6 ::1  prefixlen 128  scopeid 0x10<host>
         loop  txqueuelen 1000  (Local Loopback)
-        RX packets 473  bytes 34056 (33.2 KiB)
+        RX packets 400  bytes 30384 (29.6 KiB)
         RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 473  bytes 34056 (33.2 KiB)
+        TX packets 400  bytes 30384 (29.6 KiB)
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 
 wlp3s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         inet 192.168.1.222  netmask 255.255.255.0  broadcast 192.168.1.255
         inet6 fe80::e899:3f4a:e715:bbc6  prefixlen 64  scopeid 0x20<link>
         ether 18:4f:32:d5:a2:d5  txqueuelen 1000  (Ethernet)
-        RX packets 274596  bytes 269010702 (256.5 MiB)
-        RX errors 0  dropped 20932  overruns 0  frame 0
-        TX packets 58007  bytes 8195030 (7.8 MiB)
+        RX packets 127471  bytes 89208785 (85.0 MiB)
+        RX errors 0  dropped 19762  overruns 0  frame 0
+        TX packets 35248  bytes 6520585 (6.2 MiB)
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 
 <<<
-Verificar modificações no repositório GIT:
-$ git status
->>>
-On branch master
-Your branch is up to date with 'origin/master'.
-
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
-
-	modified:   ../include/execute.h
-	modified:   ../include/reader.h
-	modified:   ../include/utility.h
-	modified:   exemplo.nb
-	modified:   lib/command.c
-	modified:   lib/execute.c
-	modified:   lib/reader.c
-	modified:   lib/utility.c
-	modified:   main.c
-
-no changes added to commit (use "git add" and/or "git commit -a")
-<<<
 Encontrar ocorrencias de "inet":
-$2| grep inet
+$| grep inet
 >>>
         inet 127.0.0.1  netmask 255.0.0.0
         inet6 ::1  prefixlen 128  scopeid 0x10<host>
         inet 192.168.1.222  netmask 255.255.255.0  broadcast 192.168.1.255
         inet6 fe80::e899:3f4a:e715:bbc6  prefixlen 64  scopeid 0x20<link>
 <<<
-Ficar com os 2 primeiros da lista:
-$5| head -2
+Ficar com os 2 primeiros da lista do :
+$4| head -2
 >>>
-total 76
-drwxr-xr-x 4 mont3iro68 mont3iro68  4096 mai 31 08:28 .
+total 80
+drwxr-xr-x 4 mont3iro68 mont3iro68  4096 jun  2 23:44 .
 <<<
-Contar palavras:
-$4| wc
+Encontrar o nome e pid do nosso processo:
+$7| grep notebook
 >>>
-     25     156    1254
-<<<
-Ordenar:
-$9| sort
->>>
-20345 pts/0    00:00:00 memcheck-amd64-
-20349 pts/0    00:00:00 ps
- 8268 pts/0    00:00:00 bash
-  PID TTY          TIME CMD
-<<<
-Ordenar:
-$3| sort
->>>
-drwxr-xr-x 4 mont3iro68 mont3iro68  4096 mai 31 08:28 .
-total 76
-<<<
-Encontrar o pid do nosso programa:
-$| grep  progra
->>>
-
-<<<
-Contar palavras:
-$9| wc
->>>
-     16     208    1509
+ 9089 pts/0    00:00:00 notebook
 <<<
